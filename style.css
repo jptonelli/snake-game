@@ -1,0 +1,75 @@
+body {
+    background-color: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: white;
+}
+
+.pontuacao {
+    color: white;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.area-jogo {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    background-color: #111;
+    border: 4px solid lime;
+    overflow: hidden;
+}
+
+.parte {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #0a0;
+    border: 1px solid black;
+}
+
+.cabeca {
+    background-color: #0f0;
+}
+
+.comida {
+    background-color: red;
+}
+
+.obstaculo {
+    background-color: gray;
+}
+
+.game-over {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 20px;
+    border: 2px solid red;
+    border-radius: 10px;
+    display: none;
+    text-align: center;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: none;
+    background-color: lime;
+    color: black;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #00ff00cc;
+}
