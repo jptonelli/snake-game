@@ -32,12 +32,13 @@ function iniciarJogo() {
 }
 
 function mudarDirecao(evento) {
-    const tecla = evento.key;
-    if (tecla === 'ArrowLeft' && direcao !== 'direita') direcao = 'esquerda';
-    if (tecla === 'ArrowUp' && direcao !== 'baixo') direcao = 'cima';
-    if (tecla === 'ArrowRight' && direcao !== 'esquerda') direcao = 'direita';
-    if (tecla === 'ArrowDown' && direcao !== 'cima') direcao = 'baixo';
+    const keyCode = evento.keyCode;
+    if (keyCode === 37 && direcao !== 'direita') direcao = 'esquerda';
+    if (keyCode === 38 && direcao !== 'baixo') direcao = 'cima';
+    if (keyCode === 39 && direcao !== 'esquerda') direcao = 'direita';
+    if (keyCode === 40 && direcao !== 'cima') direcao = 'baixo';
 }
+
 
 function gerarComida() {
     let valido = false;
