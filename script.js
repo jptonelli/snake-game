@@ -106,6 +106,15 @@ function desenhar() {
     comidaElemento.style.top = comida.y + 'px';
     areaJogo.appendChild(comidaElemento);
 
+    cobrinha.forEach((parte, index) => {
+        const elemento = document.createElement('div');
+        elemento.classList.add('parte');
+        if (index === 0) elemento.classList.add('cabeca');
+        elemento.style.left = parte.x + 'px';
+        elemento.style.top = parte.y + 'px';
+        areaJogo.appendChild(elemento);
+    });
+
     let cabecaX = cobrinha[0].x;
     let cabecaY = cobrinha[0].y;
 

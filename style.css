@@ -23,7 +23,9 @@ h1 {
     position: relative;
     width: 600px;
     height: 600px;
-    background-color: #111;
+    background: url("/img/grama.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     border: 4px solid lime;
     overflow: hidden;
 }
@@ -33,20 +35,35 @@ h1 {
     width: 20px;
     height: 20px;
     background-color: #0a0;
-    border: 1px solid black;
+    border: 1px solid #000;
 }
 
 .cabeca {
-    background-color: #0f0;
+    background-image: url('/img/cobra.png');
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .comida {
-    background-color: red;
+    background-image: url('/img/maça.png');
+    background-size: cover;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .obstaculo {
-    background-color: gray;
+    background-color: green;
 }
+
 
 .game-over {
     position: absolute;
