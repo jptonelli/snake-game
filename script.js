@@ -1,8 +1,3 @@
-const areaJogo = document.getElementById('areaJogo');
-const divPontuacao = document.getElementById('pontuacao');
-const divGameOver = document.getElementById('fimDeJogo');
-const textoPontuacaoFinal = document.getElementById('pontuacaoFinal');
-
 const tamanho = 20;
 let cobrinha;
 let comida;
@@ -15,7 +10,12 @@ let obstaculos;
 const somComer = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
 const somBater = new Audio('https://www.fesliyanstudios.com/play-mp3/696');
 
-document.addEventListener('keydown', mudarDirecao);
+const $areaJogo = $('#areaJogo');
+const $divPontuacao = $('#pontuacao');
+const $divGameOver = $('#fimDeJogo');
+const $textoPontuacaoFinal = $('#pontuacaoFinal');
+
+$(document).on('keydown', mudarDirecao);
 
 function iniciarJogo() {
     cobrinha = [{ x: 10 * tamanho, y: 10 * tamanho }];
@@ -25,20 +25,19 @@ function iniciarJogo() {
     obstaculos = gerarObstaculos(8);
     gerarComida();
     atualizarPontuacao();
-    divGameOver.style.display = 'none';
-    areaJogo.innerHTML = '';
+    $divGameOver.hide();
+    $areaJogo.empty();
     clearInterval(intervaloDeJogo);
     intervaloDeJogo = setInterval(desenhar, velocidade);
 }
 
 function mudarDirecao(evento) {
-    const keyCode = evento.keyCode;
+    const keyCode = evento.which || evento.keyCode;
     if (keyCode === 37 && direcao !== 'direita') direcao = 'esquerda';
     if (keyCode === 38 && direcao !== 'baixo') direcao = 'cima';
     if (keyCode === 39 && direcao !== 'esquerda') direcao = 'direita';
     if (keyCode === 40 && direcao !== 'cima') direcao = 'baixo';
 }
-
 
 function gerarComida() {
     let valido = false;
@@ -76,44 +75,31 @@ function gerarObstaculos(quantidade) {
 }
 
 function atualizarPontuacao() {
-    divPontuacao.textContent = 'Pontuação: ' + pontos;
+    $divPontuacao.text('Pontuação: ' + pontos);
 }
 
 function desenhar() {
-    areaJogo.innerHTML = '';
+    $areaJogo.empty();
 
     obstaculos.forEach(o => {
-        const ob = document.createElement('div');
-        ob.classList.add('obstaculo');
-        ob.style.left = o.x + 'px';
-        ob.style.top = o.y + 'px';
-        ob.classList.add('parte');
-        areaJogo.appendChild(ob);
+        $('<div>')
+            .addClass('obstaculo parte')
+            .css({ left: o.x + 'px', top: o.y + 'px' })
+            .appendTo($areaJogo);
     });
 
     cobrinha.forEach((parte, index) => {
-        const elemento = document.createElement('div');
-        elemento.classList.add('parte');
-        if (index === 0) elemento.classList.add('cabeca');
-        elemento.style.left = parte.x + 'px';
-        elemento.style.top = parte.y + 'px';
-        areaJogo.appendChild(elemento);
+        $('<div>')
+            .addClass('parte')
+            .toggleClass('cabeca', index === 0)
+            .css({ left: parte.x + 'px', top: parte.y + 'px' })
+            .appendTo($areaJogo);
     });
 
-    const comidaElemento = document.createElement('div');
-    comidaElemento.classList.add('parte', 'comida');
-    comidaElemento.style.left = comida.x + 'px';
-    comidaElemento.style.top = comida.y + 'px';
-    areaJogo.appendChild(comidaElemento);
-
-    cobrinha.forEach((parte, index) => {
-        const elemento = document.createElement('div');
-        elemento.classList.add('parte');
-        if (index === 0) elemento.classList.add('cabeca');
-        elemento.style.left = parte.x + 'px';
-        elemento.style.top = parte.y + 'px';
-        areaJogo.appendChild(elemento);
-    });
+    $('<div>')
+        .addClass('parte comida')
+        .css({ left: comida.x + 'px', top: comida.y + 'px' })
+        .appendTo($areaJogo);
 
     let cabecaX = cobrinha[0].x;
     let cabecaY = cobrinha[0].y;
@@ -143,8 +129,8 @@ function desenhar() {
     if (cabecaX < 0 || cabecaY < 0 || cabecaX >= 600 || cabecaY >= 600 || verificarColisao(novaCabeca, cobrinha) || verificarColisao(novaCabeca, obstaculos)) {
         somBater.play();
         clearInterval(intervaloDeJogo);
-        textoPontuacaoFinal.textContent = 'Sua pontuação foi: ' + pontos;
-        divGameOver.style.display = 'block';
+        $textoPontuacaoFinal.text('Sua pontuação foi: ' + pontos);
+        $divGameOver.show();
         return;
     }
 
